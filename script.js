@@ -1,32 +1,25 @@
-// Save name to localStorage and update display
-document.getElementById("saveBtn").addEventListener("click", function () {
-    const name = document.getElementById("usernameInput").value;
-    if (name.trim() !== "") {
-      localStorage.setItem("username", name);
-      updateUsernameDisplay(name);
+const btn = document.getElementById('btn')
+const body = document.body
+
+//checking what theme was previously stored in the browser
+currentTheme = localStorage.getItem('default theme')
+if (currentTheme){
+    body.classList.add(currentTheme)
+}else{
+    body.classList.add('light-mode') 
+}
+
+//Animate the button
+   btn.classList.add('animate');
+   setTimeout(() => toggleButton.classList.remove('animate'), 500);
+
+  
+btn.addEventListener('click', function(){
+    if (body.classList.contains('light-mode')){
+        body.classList.replace('light-mode', 'dark-mode')
+        localStorage.setItem('default theme','dark-mode')
+    }else{
+        body.classList.replace('dark-mode', 'light-mode')
+        localStorage.setItem('default theme','light-mode')
     }
-  });
-  
-  // Load name from localStorage on page load
-  window.onload = function () {
-    const storedName = localStorage.getItem("username");
-    if (storedName) {
-      updateUsernameDisplay(storedName);
-    }
-  };
-  
-  // Update greeting with stored name
-  function updateUsernameDisplay(name) {
-    document.getElementById("usernameDisplay").textContent = name;
-  }
-  
-  // Animate box on button click
-  document.getElementById("animateBtn").addEventListener("click", function () {
-    const box = document.getElementById("animateBox");
-  
-    // Restart animation
-    box.classList.remove("animated");
-    void box.offsetWidth; // Trigger reflow
-    box.classList.add("animated");
-  });
-  
+})
